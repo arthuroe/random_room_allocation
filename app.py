@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Usage:
-    Dojo add_room <room_type> <rooms>...
+    Dojo create_room <room_type> <rooms>...
     Dojo add_person <first_name> <last_name> [staff|fellow] [Y|N]
     Dojo (-i | --interactive)
     Dojo (-h | --help | --version)
@@ -55,7 +55,7 @@ class MyInteractive (cmd.Cmd):
 
     @docopt_cmd
     def do_add_room(self, arg):
-        """Usage: add_room [<room_type>] <room_names>... """
+        """Usage: create_room [<room_type>] <room_names>... """
 	room_type = arg['<room_type>']
 	room_name = arg['<room_names>']
 	#dojo.create_room(room_type,room_name)
