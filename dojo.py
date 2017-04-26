@@ -39,9 +39,3 @@ class fellow(room):
 class staff(room):
 	def __init__(self):
 		pass
-	
-dojo = Dojo();
-print (dojo.create_room("office","blue","green"))
-print (dojo.create_room("living_space","blue","green"))
-print (dojo.create_room("office","yellow","grey"))
-print (dojo.create_room("living_space","other","yeah"))
