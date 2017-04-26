@@ -2,7 +2,7 @@
 """
 Usage:
     Dojo create_room <room_type> <rooms>...
-    Dojo add_person <first_name> <last_name> [staff|fellow] [Y|N]
+    Dojo add_person <first_name> <last_name> <staff-fellow> <Y-N>
     Dojo (-i | --interactive)
     Dojo (-h | --help | --version)
 Options:
@@ -14,7 +14,7 @@ import sys
 import cmd
 from docopt import docopt, DocoptExit
 
-import dojo
+from dojo import Dojo
 
 def docopt_cmd(func):
     """
@@ -63,7 +63,7 @@ class MyInteractive (cmd.Cmd):
 
     @docopt_cmd
     def do_add_person(self, arg):
-        """Usage: add_person <first_name> <last_name> [staff|fellow] [Y|N]"""
+        """Usage: add_person <first_name> <last_name> <staff-fellow> [<Y|N>]"""
 	person_fname = arg['<first_name>']
 	person_lname = arg['<last_name>']
 	person_position = arg['<staff|fellow>']
