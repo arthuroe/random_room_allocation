@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 """
 Usage:
-    Dojo room <room_type> <rooms>...
+    Dojo add_room <room_type> <rooms>...
+    Dojo add_person <first_name> <last_name> [staff|fellow] [Y|N]
     Dojo (-i | --interactive)
     Dojo (-h | --help | --version)
 Options:
@@ -13,6 +14,7 @@ import sys
 import cmd
 from docopt import docopt, DocoptExit
 
+import dojo
 
 def docopt_cmd(func):
     """
@@ -53,20 +55,20 @@ class MyInteractive (cmd.Cmd):
 
     @docopt_cmd
     def do_add_room(self, arg):
-        """Usage: add_room [<room>] <room_names>... """
-	room_type = arg['<room>']
+        """Usage: add_room [<room_type>] <room_names>... """
+	room_type = arg['<room_type>']
 	room_name = arg['<room_names>']
-	dojo.create_room(room_type,room_name)
+	#dojo.create_room(room_type,room_name)
         print(arg)
 
     @docopt_cmd
     def do_add_person(self, arg):
-        """Usage: add_person <first_name> <last_name> <staff|fellow> [Y|N]"""
+        """Usage: add_person <first_name> <last_name> [staff|fellow] [Y|N]"""
 	person_fname = arg['<first_name>']
 	person_lname = arg['<last_name>']
 	person_position = arg['<staff|fellow>']
 	living_space = arg['<Y|N>']
-	dojo.add_person(person_fname,person_lname,person_position,living_space)
+	#dojo.add_person(person_fname,person_lname,person_position,living_space)
         print(arg)
 
     def do_quit(self, arg):
