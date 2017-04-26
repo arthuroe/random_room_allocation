@@ -15,6 +15,7 @@ import cmd
 from docopt import docopt, DocoptExit
 
 from dojo import Dojo
+dojo = Dojo()
 
 def docopt_cmd(func):
     """
@@ -54,22 +55,23 @@ class MyInteractive (cmd.Cmd):
     file = None
 
     @docopt_cmd
-    def do_add_room(self, arg):
+    def do_create_room(self, arg):
         """Usage: create_room [<room_type>] <room_names>... """
 	room_type = arg['<room_type>']
 	room_name = arg['<room_names>']
-	#dojo.create_room(room_type,room_name)
-        print(arg)
+	dojo.create_room(room_type,room_name)
+	for i in room_name:
+        	print(room_type + " room "+str(i) +" successfully created\n")
 
     @docopt_cmd
     def do_add_person(self, arg):
-        """Usage: add_person <first_name> <last_name> <staff-fellow> [<Y|N>]"""
-	person_fname = arg['<first_name>']
-	person_lname = arg['<last_name>']
-	person_position = arg['<staff|fellow>']
-	living_space = arg['<Y|N>']
-	#dojo.add_person(person_fname,person_lname,person_position,living_space)
-        print(arg)
+        """Usage: add_person <first_name> <staff-fellow> [<Y-N>]"""
+	name = arg['<first_name>']
+	#person_lname = arg['<last_name>']
+	position = arg['<staff-fellow>']
+	accomodation= arg['<Y-N>']
+	dojo.add_person(name,position,accomodation)
+        print(name+" successfully added")
 
     def do_quit(self, arg):
         """Quits out of Interactive Mode."""
