@@ -17,11 +17,13 @@ from docopt import docopt, DocoptExit
 from dojo import Dojo
 dojo = Dojo()
 
+
 def docopt_cmd(func):
     """
     This decorator is used to simplify the try/except block and pass the result
     of the docopt parsing to the called action.
     """
+
     def fn(self, arg):
         try:
             opt = docopt(fn.__doc__, arg)
@@ -57,21 +59,21 @@ class MyInteractive (cmd.Cmd):
     @docopt_cmd
     def do_create_room(self, arg):
         """Usage: create_room [<room_type>] <room_names>... """
-	room_type = arg['<room_type>']
-	room_name = arg['<room_names>']
-	dojo.create_room(room_type,room_name)
-	for i in room_name:
-        	print(room_type + " room "+str(i) +" successfully created\n")
+        room_type = arg['<room_type>']
+        room_name = arg['<room_names>']
+        dojo.create_room(room_type, room_name)
+        for i in room_name:
+            print(room_type + " room " + str(i) + " successfully created\n")
 
     @docopt_cmd
     def do_add_person(self, arg):
         """Usage: add_person <first_name> <staff-fellow> [<Y-N>]"""
-	name = arg['<first_name>']
-	#person_lname = arg['<last_name>']
-	position = arg['<staff-fellow>']
-	accomodation= arg['<Y-N>']
-	dojo.add_person(name,position,accomodation)
-        print(name+" successfully added")
+        name = arg['<first_name>']
+        #person_lname = arg['<last_name>']
+        position = arg['<staff-fellow>']
+        accomodation = arg['<Y-N>']
+        dojo.add_person(name, position, accomodation)
+        print(name + " successfully added")
 
     def do_quit(self, arg):
         """Quits out of Interactive Mode."""
@@ -79,11 +81,10 @@ class MyInteractive (cmd.Cmd):
         print('Good Bye!')
         exit()
 
+
 opt = docopt(__doc__, sys.argv[1:])
 
 if opt['--interactive']:
     MyInteractive().cmdloop()
 
 print(opt)
-
-
