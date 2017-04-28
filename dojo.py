@@ -1,7 +1,49 @@
+class Room():
+    def __init__(self, room_name, max_number):
+        self.room_name = room_name
+        self.max_number = max_number
+
+
+class Office(Room):
+
+    def __init__(self):
+        super().__init__(room_name)
+        self.max_number = 6
+
+
+class Living_space(Room):
+
+    def __init__(self):
+        super().__init__(room_name)
+        self.max_number = 4
+
+
+class Person():
+    def __init__(self, name, position):
+        self.name = name
+        self.position = position
+
+
+class Fellow(Person):
+    def __init__(self):
+        super().__init__(name, position)
+
+
+class Staff(Person):
+    def __init__(self):
+        super().__init__(name, position)
+        self.accomodation = 'N'
+
+
 class Dojo(object):
+    #dojo_room = Room(room_name, max_number)
+    #dojo_person = Person(name, position)
+
     def __init__(self):
         self.rooms = {}
         self.people = {}
+        self.offices = {}
+        self.living_space = {}
 
     def create_room(self, room_type, *room_names):
         room_name = list(room_names)
@@ -48,83 +90,24 @@ class Dojo(object):
         else:
             return 'Unknown position'
 
-    def available_rooms(self, room_type):
+    def available_rooms(self, room_type, room_name):
         if len(self.rooms) <= 0:
-            return "No rooms available!"
+            print 'No rooms available'
+            return 'No rooms available'
         else:
             available_rooms = {}
-
-            for room in self.rooms:
-                if room.occupants < room.capacity:
-                    available_rooms[room_type].append(room)
-
-            return available_rooms
-
-    def assign_room(self, position, person_object, accomodation):
-        if len(self.rooms) <= 0:
-
-            print("No Rooms available")
-            return "No Rooms available"
-
-        else:
-            if len(self.offices) <= 0:
-                print("No Office Space available")
-                return "No Office Space available"
-            else:
-                if person_object.office == "":
-                    available_offices = self.get_available_rooms("office")
-                    if len(available_offices) >= 1:
-
-                        office_to_assign = random.choice(available_offices)
-                        person_object.office = office_to_assign.name
-
-                        office_to_assign.occupants += 1
-                        self.assignedRooms.append(office_to_assign)
-
-                        return self
+            if len(room_type[room_name]) <= person.max_number:
+                for room in self.rooms:
+                    if room_type == 'office':
+                        available_rooms['office'].append(room)
                     else:
-                        print("No available offices found")
-                else:
-                    print("Already has office")
+                        available_rooms['living_space'].append(room)
+                    return available_rooms
+            else:
+                return 'No rooms available'
 
-
-class Room():
-    def __init__(self):
-        self.name = name
-        self.max_number = max_number
-
-
-class Office(Room):
-
-    def __init__(self):
-        super().__init__(name)
-        self.max_number = 6
-
-
-class Living_space(Room):
-    max_number = 4
-
-    def __init__(self):
-        super().__init__(name)
-
-
-class Person():
-    def __init__(self, name, position):
-        self.name = name
-        self.position = position
-
-    def allocate():
+    def allocate_room(self, position, accomodation):
         pass
-
-
-class Fellow(Person):
-    def __init__(self):
-        super().__init__(name, position)
-
-
-class Staff(Person):
-    def __init__(self):
-        super().__init__(name, position)
 
 
 dojo = Dojo()
