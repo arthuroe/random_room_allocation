@@ -92,7 +92,7 @@ class Dojo(object):
 
     def available_rooms(self, room_type, room_name):
         if len(self.rooms) <= 0:
-            print 'No rooms available'
+            print ('No rooms available')
             return 'No rooms available'
         else:
             available_rooms = {}
