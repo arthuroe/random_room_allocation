@@ -22,7 +22,7 @@ class CreateRoomTestCase(unittest.TestCase):
         new_room_count = len(self.dojo.rooms)
         self.assertEqual(new_room_count - initial_room_count, 1)
 
-    def test_create_multiplerooms(self):
+    def test_create_multiple_rooms(self):
         self.dojo.create_room('office', 'blue', 'black')
         self.assertEqual(self.dojo.rooms, {'office': [
                          'blue', 'black']}, msg='Multiple rooms cannot be entered')
@@ -33,8 +33,8 @@ class CreateRoomTestCase(unittest.TestCase):
                          'dom']}, msg='Unable to add room when provided with single room')
 
     def test_create_unknown_room_type(self):
-        self.dojo.create_room('living', 'dom')
-        self.assertEqual(self.dojo.rooms, {'living_space': ['dom']}, msg='Unknown room')
+        self.assertEqual(self.dojo.create_room('kitchen', 'dom'),
+                         'Unknown room', msg='Unknown room')
 
     def test_add_unknown_person_position(self):
         self.dojo.add_person('john deer', 'facilitator', 'Y')
@@ -51,7 +51,3 @@ class CreateRoomTestCase(unittest.TestCase):
     def test_add_person_staff(self):
         self.dojo.add_person('john deer', 'staff')
         self.assertEqual(self.dojo.people, {'fellow': [('blue', 'N')]}, msg='Unable to add staff')
-
-
-if __name__ == '__main__':
-    main()

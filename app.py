@@ -13,8 +13,10 @@ Options:
 import sys
 import cmd
 from docopt import docopt, DocoptExit
-
+from termcolor import cprint
+from pyfiglet import figlet_format
 from dojo import Dojo
+import os
 dojo = Dojo()
 
 
@@ -51,8 +53,14 @@ def docopt_cmd(func):
 
 
 class MyInteractive (cmd.Cmd):
-    intro = '*****Random Room Allocation*****' \
-        + ' (Enter help for a list of commands.)'
+    os.system('clear')
+    cprint(figlet_format('Dojo\n', font='xsansi'), 'blue', attrs=['bold'])
+    intro = ('Welcome To The Dojo \n\nType "help" To View More Commands or "quit" To Exit Applicaton \n\n------------------'
+             '\n\nCOMMANDS \n\n------------------ \n\n1 - add_person <person_name> (FELLOW|STAFF) [wants_accommodation] \n2 - create_room <room_type> <room_name>...')
+
+    intro = '   *****Random Room Allocation*****' \
+        + '\n   ----------------------------------' \
+        + ' \n  Enter help for a list of commands.'
     prompt = 'DOJO>>> '
     file = None
 
@@ -60,16 +68,17 @@ class MyInteractive (cmd.Cmd):
     def do_create_room(self, arg):
         """Usage: create_room [<room_type>] <room_names>... """
         room_type = arg['<room_type>']
-        room_name = arg['<room_names>']
-        dojo.create_room(room_type, room_name)
-        for i in room_name:
-            print(room_type + " room " + str(i) + " successfully created\n")
+        room_names = arg['<room_names>']
+        dojo.create_room(room_type, room_names)
+        for room in room_names:
+            print(room_type + " room " + str(room) + " successfully created!\n")
 
     @docopt_cmd
     def do_add_person(self, arg):
-        """Usage: add_person <first_name> <staff-fellow> [<Y-N>]"""
-        name = arg['<first_name>']
-        #person_lname = arg['<last_name>']
+        """Usage: add_person <first_name> <last_name> <staff-fellow> [<Y-N>]"""
+        first_name = arg['<first_name>']
+        last_name = arg['<last_name>']
+        name = arg['<first_name>'] + ' ' + arg['<last_name>']
         position = arg['<staff-fellow>']
         accomodation = arg['<Y-N>']
         dojo.add_person(name, position, accomodation)
