@@ -83,6 +83,11 @@ class MyInteractive (cmd.Cmd):
         accomodation = arg['<Y-N>']
         dojo.add_person(name, position, accomodation)
         print(name + " successfully added")
+        if position == 'fellow' and accomodation == 'Y':
+            print(name + " added to living space")
+            print(name + " added to office")
+        else:
+            print(name + " added to office")
 
     def do_quit(self, arg):
         """Quits out of Interactive Mode."""

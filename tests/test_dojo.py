@@ -11,13 +11,9 @@ class CreateRoomTestCase(unittest.TestCase):
     def test_initial_room_check(self):
         self.assertEqual(self.dojo.rooms, {}, msg='invalid')
 
-    def test_create_room(self):
-        self.dojo.create_room('blue')
-        self.assertEqual(self.dojo.rooms, ['blue'], msg='Unable to create room')
-
     def test_create_room_successfully(self):
         initial_room_count = len(self.dojo.rooms)
-        blue_office = self.dojo.create_room('Blue', 'office')
+        blue_office = self.dojo.create_room('office', 'blue')
         self.assertTrue(blue_office)
         new_room_count = len(self.dojo.rooms)
         self.assertEqual(new_room_count - initial_room_count, 1)
@@ -41,13 +37,15 @@ class CreateRoomTestCase(unittest.TestCase):
         self.assertEqual(self.dojo.people, {'fellow': [('blue', 'Y')]}, msg='Unknown position')
 
     def test_add_unknown_person_position(self):
-        self.dojo.add_person('john deer', 'facilitator', 'Y')
-        self.assertEqual(self.dojo.people, {'fellow': [('blue', 'Y')]}, msg='Unknown position')
+        self.assertEqual(self.dojo.add_person('john deer', 'facilitator', 'Y'),
+                         'Unknown position', msg='Unknown position')
 
     def test_add_person_fellow(self):
         self.dojo.add_person('john deer', 'fellow', 'Y')
-        self.assertEqual(self.dojo.people, {'fellow': [('blue', 'Y')]}, msg='Unable to add fellow')
+        self.assertEqual(self.dojo.people[position], {'fellow': [
+                         ('blue', 'Y')]}, msg='Unable to add fellow')
 
     def test_add_person_staff(self):
         self.dojo.add_person('john deer', 'staff')
-        self.assertEqual(self.dojo.people, {'fellow': [('blue', 'N')]}, msg='Unable to add staff')
+        self.assertEqual(self.dojo.people['staff'], {'staff': [
+                         ('blue', 'N')]}, msg='Unable to add staff')

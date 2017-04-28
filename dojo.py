@@ -48,6 +48,45 @@ class Dojo(object):
         else:
             return 'Unknown position'
 
+    def available_rooms(self, room_type):
+        if len(self.rooms) <= 0:
+            return "No rooms available!"
+        else:
+            available_rooms = {}
+
+            for room in self.rooms:
+                if room.occupants < room.capacity:
+                    available_rooms[room_type].append(room)
+
+            return available_rooms
+
+    def assign_room(self, position, person_object, accomodation):
+        if len(self.rooms) <= 0:
+
+            print("No Rooms available")
+            return "No Rooms available"
+
+        else:
+            if len(self.offices) <= 0:
+                print("No Office Space available")
+                return "No Office Space available"
+            else:
+                if person_object.office == "":
+                    available_offices = self.get_available_rooms("office")
+                    if len(available_offices) >= 1:
+
+                        office_to_assign = random.choice(available_offices)
+                        person_object.office = office_to_assign.name
+
+                        office_to_assign.occupants += 1
+                        self.assignedRooms.append(office_to_assign)
+
+                        return self
+                    else:
+                        print("No available offices found")
+                else:
+                    print("Already has office")
+
 
 class Room():
     def __init__(self):
@@ -56,14 +95,14 @@ class Room():
 
 
 class Office(Room):
-    max = 6
 
     def __init__(self):
-        pass
+        super().__init__(name)
+        self.max_number = 6
 
 
 class Living_space(Room):
-    max = 4
+    max_number = 4
 
     def __init__(self):
         super().__init__(name)
